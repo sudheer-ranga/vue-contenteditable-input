@@ -1,0 +1,45 @@
+{
+  "name": "vue-contenteditable-input",
+  "version": "0.1.2",
+  "description": "Contenteditable directive with v-model, auto focus, preventing new line on enter, formatting html text to plain text etc.,",
+  "keywords": [
+    "Vue",
+    "directive",
+    "contenteditable",
+    "input"
+  ],
+  "homepage": "https://github.com/sudheer-ranga/vue-contenteditable-input",
+  "bugs": "https://github.com/sudheer-ranga/vue-contenteditable-input/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Sudheer Ranga",
+    "email": "sudheer90pr@gmail.com",
+    "url": "https://github.com/sudheer-ranga/"
+  },
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
+  "main": "dist/vue-contenteditable-input.umd.js",
+  "module": "dist/vue-contenteditable-input.esm.js",
+  "unpkg": "dist/vue-contenteditable-input.min.js",
+  "browser": {
+    "./sfc": "src/vue-contenteditable-input.vue"
+  },
+  "scripts": {
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-contenteditable-input.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-contenteditable-input.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-contenteditable-input.min.js"
+  },
+  "devDependencies": {
+    "rollup": "^2.3.2",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-vue": "^5.1.6",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
