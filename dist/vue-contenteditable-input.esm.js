@@ -319,4 +319,10 @@ __vue_render__._withStripped = true;
 
 // import contenteditable from './VueContenteditableInput.vue'
 
-export default __vue_component__;
+var VueContenteditableInput = { 
+  install: function install (Vue, options) {
+    Vue.component(__vue_component__.name, __vue_component__);
+  }
+};
+
+export default VueContenteditableInput;
