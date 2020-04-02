@@ -16,11 +16,19 @@ With a build system
 $ npm install --save vue-contenteditable-input
 ```
 
-### In your `main.js`:
+### To make the plugin available globally
+In your `main.js`:
 
 ```javascript
-import contenteditable from 'vue-contenteditable-input'
-Vue.use(contenteditable)
+const VueContenteditableInput = require('vue-contenteditable-input')
+Vue.use(VueContenteditableInput)
+```
+
+**OR**
+
+To include only in specific components
+```javascript
+import VueContenteditableInput from 'vue-contenteditable-input'
 ```
 
 ### (Re)build
@@ -38,18 +46,17 @@ npm run build
 
 ### Usage
 
-Where you need a `contenteditable` element :
+When you need a `contenteditable` element:
 
 ```javascript
 <template>
-  <vue-contenteditable-editable tag="div" placeholder="Enter content" :contenteditable="isEditable" v-model="message" :disable-newline="true" @enter="enterPressed" :autofocus="true" />
+  <vue-contenteditable-editable tag="div" placeholder="Enter content" :contenteditable="true" v-model="message" :disable-newline="true" @enter="enterPressed" :autofocus="true" />
 </template>
  
 <script>
 export default {
   data() {
     return {
-      isEditable: true,
       message: ''
     }
   },
@@ -61,16 +68,24 @@ export default {
 }
 ```
 
+### Props
+| Name | Type | Default Value | Description |
+| ------ | ------ | ------ | ------ |
+| `tag` | `String` | `span` | |
+| `contenteditable` | `Boolean` | `true` | |
+| `input-ref` | `String` | `editable-input` | |
+| `v-model` | `String` | `''` | |
+| `placeholder` | `String` | `''` | |
+| `autofocus` | `Boolean` | `false` | |
+| `disable-newline` | `Boolean` | `false` | |
+| `format-text` | `Boolean` | `false` | |
+
 ### Events
-```
 `enter`
-  When the user press :kbd:Return and `disable-newline` is set, then it emits the `enter` event with the current value (as ``String``) as argument.
-```
+ When the user press :kbd:Return and `disable-newline` is set, then it emits the `enter` event with the current value (as ``String``) as argument.
 
 ### License
 
 This code is provided as-is, under the terms of the MIT license (see License file for more details).
 
 A link to the original sources and contribution / pull request are welcome if you enjoy / use / contribute to this module ! :)
-
-

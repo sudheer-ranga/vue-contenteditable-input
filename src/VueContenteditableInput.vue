@@ -34,12 +34,12 @@ export default {
       type: String,
       default: ''
     },
-    icon: null,
     placeholder: {
       type: String
     },
-    focus: {
-      type: Boolean
+    autofocus: {
+      type: Boolean,
+      default: false
     },
     disableNewline: {
       type: Boolean,
@@ -62,7 +62,7 @@ export default {
       return {
         ...this.$listeners,
         input: this.onInput,
-        focus: this.onFocus,
+        autofocus: this.onFocus,
         blur: this.onBlur,
         keypress: this.handleEnter,
         paste: this.onPaste
@@ -73,7 +73,7 @@ export default {
     const inputRef = this.$refs[this.inputRef]
     inputRef.innerText = this.value || null
     this.$nextTick(() => {
-      if (this.focus) {
+      if (this.autofocus) {
         inputRef.focus()
       }
     })

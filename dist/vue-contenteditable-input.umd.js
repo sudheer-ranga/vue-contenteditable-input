@@ -40,12 +40,12 @@
         type: String,
         default: ''
       },
-      icon: null,
       placeholder: {
         type: String
       },
-      focus: {
-        type: Boolean
+      autofocus: {
+        type: Boolean,
+        default: false
       },
       disableNewline: {
         type: Boolean,
@@ -67,7 +67,7 @@
       listeners: function listeners() {
         return Object.assign({}, this.$listeners,
           {input: this.onInput,
-          focus: this.onFocus,
+          autofocus: this.onFocus,
           blur: this.onBlur,
           keypress: this.handleEnter,
           paste: this.onPaste});
@@ -79,7 +79,7 @@
       var inputRef = this.$refs[this.inputRef];
       inputRef.innerText = this.value || null;
       this.$nextTick(function () {
-        if (this$1.focus) {
+        if (this$1.autofocus) {
           inputRef.focus();
         }
       });
@@ -295,11 +295,11 @@
     /* style */
     var __vue_inject_styles__ = function (inject) {
       if (!inject) { return }
-      inject("data-v-681f7669_0", { source: "\n.vue-editable-input[data-v-681f7669] {\n  min-width: 100px;\n  display: inline-block;\n  border: 1px solid #ddd;\n  border-radius: 4px;\n  padding: 10px;\n  outline: none;\n}\n.vue-editable-input[data-v-681f7669]:focus {\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);\n}\n[placeholder][data-v-681f7669]:empty:before {\n  content: attr(placeholder);\n  color: #676A6D;\n}\n", map: {"version":3,"sources":["/Users/ranga/demos/vue-contenteditable-input/src/VueContenteditableInput.vue"],"names":[],"mappings":";AAsIA;EACA,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,aAAA;EACA,aAAA;AACA;AAEA;EACA,sCAAA;AACA;AAEA;EACA,0BAAA;EACA,cAAA;AACA","file":"VueContenteditableInput.vue","sourcesContent":["<template>\n  <component\n    :is=\"tag\"\n    class=\"vue-editable-input\"\n    :class=\"{'disabled': !contenteditable}\"\n    :contenteditable=\"contenteditable\"\n    :ref=\"inputRef\"\n    :placeholder=\"placeholder\"\n    v-on=\"listeners\"\n  ></component>\n</template>\n\n<script>\nfunction replaceAll(str, search, replacement) {\n  return str.split(search).join(replacement)\n}\n\nexport default {\n  name: 'VueContenteditableInput',\n  props: {\n    tag: {\n      type: String,\n      default: 'span'\n    },\n    contenteditable: {\n      type: Boolean,\n      default: true\n    },\n    inputRef: {\n      type: String,\n      default: 'editable-input'\n    },\n    value: {\n      type: String,\n      default: ''\n    },\n    icon: null,\n    placeholder: {\n      type: String\n    },\n    focus: {\n      type: Boolean\n    },\n    disableNewline: {\n      type: Boolean,\n      default: false\n    },\n    formatText: {\n      type: Boolean,\n      default: false\n    }\n  },\n  data() {\n    return {\n      hasContent: false,\n      isFocused: false,\n      focusTimeoutRef: null\n    };\n  },\n  computed: {\n    listeners() {\n      return {\n        ...this.$listeners,\n        input: this.onInput,\n        focus: this.onFocus,\n        blur: this.onBlur,\n        keypress: this.handleEnter,\n        paste: this.onPaste\n      };\n    }\n  },\n  mounted() {\n    const inputRef = this.$refs[this.inputRef]\n    inputRef.innerText = this.value || null\n    this.$nextTick(() => {\n      if (this.focus) {\n        inputRef.focus()\n      }\n    })\n    this.hasContent = this.value ? 'true' : 'false'\n  },\n  methods: {\n    onBlur() {\n      this.isFocused = false\n\n      this.$emit('blur')\n    },\n    onInput(e) {\n      const value = e.target.innerText\n      this.hasContent = value ? 'true' : 'false'\n\n      this.$emit('input', value)\n    },\n    onFocus(e) {\n      this.isFocused = true\n      const value = e.target.innerText\n      this.hasContent = value ? 'true' : 'false'\n\n      this.$emit('focus')\n    },\n    handleEnter(e) {\n      if (e.key === 'Enter') {\n        if (this.disableNewline) {\n          e.preventDefault()\n          this.$emit('enter', this.value)\n        }\n      }\n\n      this.$emit('keypress')\n    },\n    onPaste(event) {\n      event.preventDefault()\n      let text = this.formatText\n        ? event.clipboardData.getData('text/plain')\n        : event.clipboardData.getData('text/html')\n\n      if (this.disableNewline || this.formatText) {\n        text = replaceAll(text, '\\r\\n', ' ')\n        text = replaceAll(text, '\\n', ' ')\n        text = replaceAll(text, '\\r', ' ')\n      }\n\n      this.formatText\n        ? document.execCommand('inserttext', false, text)\n        : document.execCommand('insertHTML', false, text)\n\n      !this.formatText && this.$emit('input', text)\n      this.$emit('paste')\n    }\n  }\n};\n</script>\n\n<style scoped>\n.vue-editable-input {\n  min-width: 100px;\n  display: inline-block;\n  border: 1px solid #ddd;\n  border-radius: 4px;\n  padding: 10px;\n  outline: none;\n}\n\n.vue-editable-input:focus {\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);\n}\n\n[placeholder]:empty:before {\n  content: attr(placeholder);\n  color: #676A6D;\n}\n</style>\n"]}, media: undefined });
+      inject("data-v-5d9b7d94_0", { source: "\n.vue-editable-input[data-v-5d9b7d94] {\n  min-width: 100px;\n  display: inline-block;\n  border: 1px solid #ddd;\n  border-radius: 4px;\n  padding: 10px;\n  outline: none;\n}\n.vue-editable-input[data-v-5d9b7d94]:focus {\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);\n}\n[placeholder][data-v-5d9b7d94]:empty:before {\n  content: attr(placeholder);\n  color: #676A6D;\n}\n", map: {"version":3,"sources":["/Users/ranga/demos/vue-contenteditable-input/src/VueContenteditableInput.vue"],"names":[],"mappings":";AAsIA;EACA,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,aAAA;EACA,aAAA;AACA;AAEA;EACA,sCAAA;AACA;AAEA;EACA,0BAAA;EACA,cAAA;AACA","file":"VueContenteditableInput.vue","sourcesContent":["<template>\n  <component\n    :is=\"tag\"\n    class=\"vue-editable-input\"\n    :class=\"{'disabled': !contenteditable}\"\n    :contenteditable=\"contenteditable\"\n    :ref=\"inputRef\"\n    :placeholder=\"placeholder\"\n    v-on=\"listeners\"\n  ></component>\n</template>\n\n<script>\nfunction replaceAll(str, search, replacement) {\n  return str.split(search).join(replacement)\n}\n\nexport default {\n  name: 'VueContenteditableInput',\n  props: {\n    tag: {\n      type: String,\n      default: 'span'\n    },\n    contenteditable: {\n      type: Boolean,\n      default: true\n    },\n    inputRef: {\n      type: String,\n      default: 'editable-input'\n    },\n    value: {\n      type: String,\n      default: ''\n    },\n    placeholder: {\n      type: String\n    },\n    autofocus: {\n      type: Boolean,\n      default: false\n    },\n    disableNewline: {\n      type: Boolean,\n      default: false\n    },\n    formatText: {\n      type: Boolean,\n      default: false\n    }\n  },\n  data() {\n    return {\n      hasContent: false,\n      isFocused: false,\n      focusTimeoutRef: null\n    };\n  },\n  computed: {\n    listeners() {\n      return {\n        ...this.$listeners,\n        input: this.onInput,\n        autofocus: this.onFocus,\n        blur: this.onBlur,\n        keypress: this.handleEnter,\n        paste: this.onPaste\n      };\n    }\n  },\n  mounted() {\n    const inputRef = this.$refs[this.inputRef]\n    inputRef.innerText = this.value || null\n    this.$nextTick(() => {\n      if (this.autofocus) {\n        inputRef.focus()\n      }\n    })\n    this.hasContent = this.value ? 'true' : 'false'\n  },\n  methods: {\n    onBlur() {\n      this.isFocused = false\n\n      this.$emit('blur')\n    },\n    onInput(e) {\n      const value = e.target.innerText\n      this.hasContent = value ? 'true' : 'false'\n\n      this.$emit('input', value)\n    },\n    onFocus(e) {\n      this.isFocused = true\n      const value = e.target.innerText\n      this.hasContent = value ? 'true' : 'false'\n\n      this.$emit('focus')\n    },\n    handleEnter(e) {\n      if (e.key === 'Enter') {\n        if (this.disableNewline) {\n          e.preventDefault()\n          this.$emit('enter', this.value)\n        }\n      }\n\n      this.$emit('keypress')\n    },\n    onPaste(event) {\n      event.preventDefault()\n      let text = this.formatText\n        ? event.clipboardData.getData('text/plain')\n        : event.clipboardData.getData('text/html')\n\n      if (this.disableNewline || this.formatText) {\n        text = replaceAll(text, '\\r\\n', ' ')\n        text = replaceAll(text, '\\n', ' ')\n        text = replaceAll(text, '\\r', ' ')\n      }\n\n      this.formatText\n        ? document.execCommand('inserttext', false, text)\n        : document.execCommand('insertHTML', false, text)\n\n      !this.formatText && this.$emit('input', text)\n      this.$emit('paste')\n    }\n  }\n};\n</script>\n\n<style scoped>\n.vue-editable-input {\n  min-width: 100px;\n  display: inline-block;\n  border: 1px solid #ddd;\n  border-radius: 4px;\n  padding: 10px;\n  outline: none;\n}\n\n.vue-editable-input:focus {\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);\n}\n\n[placeholder]:empty:before {\n  content: attr(placeholder);\n  color: #676A6D;\n}\n</style>\n"]}, media: undefined });
 
     };
     /* scoped */
-    var __vue_scope_id__ = "data-v-681f7669";
+    var __vue_scope_id__ = "data-v-5d9b7d94";
     /* module identifier */
     var __vue_module_identifier__ = undefined;
     /* functional template */
@@ -323,23 +323,31 @@
       undefined
     );
 
-  var VueContenteditableInput = { 
-    install: function install (Vue, options) {
-      Vue.component(__vue_component__.name, __vue_component__);
-    }
+  // Declare install function executed by Vue.use()
+  function install(Vue) {
+  	if (install.installed) { return; }
+  	install.installed = true;
+  	Vue.component(__vue_component__.name, __vue_component__);
+  }
+
+  // Create module definition for Vue.use()
+  var plugin = {
+  	install: install,
   };
 
+  // Auto-install when vue is found (eg. in browser via <script> tag)
   var GlobalVue = null;
   if (typeof window !== 'undefined') {
-    GlobalVue = window.Vue;
+  	GlobalVue = window.Vue;
   } else if (typeof global !== 'undefined') {
-    GlobalVue = global.Vue;
+  	GlobalVue = global.Vue;
   }
   if (GlobalVue) {
-    GlobalVue.use(__vue_component__);
+  	GlobalVue.use(plugin);
   }
 
-  exports.default = VueContenteditableInput;
+  exports.default = __vue_component__;
+  exports.install = install;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
