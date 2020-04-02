@@ -317,12 +317,20 @@ __vue_render__._withStripped = true;
     undefined
   );
 
-// import contenteditable from './VueContenteditableInput.vue'
-
 var VueContenteditableInput = { 
   install: function install (Vue, options) {
     Vue.component(__vue_component__.name, __vue_component__);
   }
 };
+
+var GlobalVue = null;
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+  GlobalVue.use(__vue_component__);
+}
 
 export default VueContenteditableInput;
