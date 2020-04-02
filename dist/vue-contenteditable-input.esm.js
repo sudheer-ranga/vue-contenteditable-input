@@ -318,19 +318,24 @@ __vue_render__._withStripped = true;
   );
 
 var VueContenteditableInput = { 
-  install: function install (Vue, options) {
+  install: function install (Vue) {
     Vue.component(__vue_component__.name, __vue_component__);
   }
 };
 
-var GlobalVue = null;
-if (typeof window !== 'undefined') {
-  GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
-  GlobalVue = global.Vue;
-}
-if (GlobalVue) {
-  GlobalVue.use(__vue_component__);
+// let GlobalVue = null;
+// if (typeof window !== 'undefined') {
+//   GlobalVue = window.Vue;
+// } else if (typeof global !== 'undefined') {
+//   GlobalVue = global.Vue;
+// }
+// if (GlobalVue) {
+//   GlobalVue.use(Component);
+// }
+
+if (typeof window !== 'undefined' && window.Vue) {
+  console.log('adding to global vue');
+  window.Vue.use(__vue_component__);
 }
 
 export default VueContenteditableInput;
